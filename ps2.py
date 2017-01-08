@@ -147,67 +147,76 @@ class RectangularRoom(object):
 
 # === Problem 2
 class Robot(object):
-    """
-    Represents a robot cleaning a particular room.
-
-    At all times the robot has a particular position and direction in the room.
-    The robot also has a fixed speed.
-
-    Subclasses of Robot should provide movement strategies by implementing
-    updatePositionAndClean(), which simulates a single time-step.
-    """
-    def __init__(self, room, speed):
+    class Robot(object):
         """
-        Initializes a Robot with the given speed in the specified room. The
-        robot initially has a random direction and a random position in the
-        room. The robot cleans the tile it is on.
+        Represents a robot cleaning a particular room.
 
-        room:  a RectangularRoom object.
-        speed: a float (speed > 0)
-        """
-        raise NotImplementedError
+        At all times the robot has a particular position and direction in the room.
+        The robot also has a fixed speed.
 
-    def getRobotPosition(self):
+        Subclasses of Robot should provide movement strategies by implementing
+        updatePositionAndClean(), which simulates a single time-step.
         """
-        Return the position of the robot.
 
-        returns: a Position object giving the robot's position.
-        """
-        raise NotImplementedError
-    
-    def getRobotDirection(self):
-        """
-        Return the direction of the robot.
+        def __init__(self, room, speed):
+            """
+            Initializes a Robot with the given speed in the specified room. The
+            robot initially has a random direction and a random position in the
+            room. The robot cleans the tile it is on.
 
-        returns: an integer d giving the direction of the robot as an angle in
-        degrees, 0 <= d < 360.
-        """
-        raise NotImplementedError
+            room:  a RectangularRoom object.
+            speed: a float (speed > 0)
+            """
+            self.room = room
+            self.speed = speed
+            self.direction = 0
+            # self.pos = Position(random.randrange(0, self.room.width), random.randrange(0, self.room.height))
+            self.pos = room.getRandomPosition()
+            self.setRobotPosition(self.pos)
+            self.setRobotDirection(self.direction)
+            self.room.cleanTileAtPosition(self.pos)
 
-    def setRobotPosition(self, position):
-        """
-        Set the position of the robot to POSITION.
+        def getRobotPosition(self):
+            """
+            Return the position of the robot.
 
-        position: a Position object.
-        """
-        raise NotImplementedError
+            returns: a Position object giving the robot's position.
+            """
+            return self.pos
 
-    def setRobotDirection(self, direction):
-        """
-        Set the direction of the robot to DIRECTION.
+        def getRobotDirection(self):
+            """
+            Return the direction of the robot.
 
-        direction: integer representing an angle in degrees
-        """
-        raise NotImplementedError
+            returns: an integer d giving the direction of the robot as an angle in
+            degrees, 0 <= d < 360.
+            """
+            return self.direction
 
-    def updatePositionAndClean(self):
-        """
-        Simulate the raise passage of a single time-step.
+        def setRobotPosition(self, position):
+            """
+            Set the position of the robot to POSITION.
 
-        Move the robot to a new position and mark the tile it is on as having
-        been cleaned.
-        """
-        raise NotImplementedError # don't change this!
+            position: a Position object.
+            """
+            self.pos = position
+
+        def setRobotDirection(self, direction):
+            """
+            Set the direction of the robot to DIRECTION.
+
+            direction: integer representing an angle in degrees
+            """
+            self.direction = direction
+
+        def updatePositionAndClean(self):
+            """
+            Simulate the raise passage of a single time-step.
+
+            Move the robot to a new position and mark the tile it is on as having
+            been cleaned.
+            """
+            raise NotImplementedError  # don't change this!
 
 
 # === Problem 3
